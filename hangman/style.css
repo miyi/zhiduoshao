@@ -1,0 +1,175 @@
+@keyframes slidein {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+.control {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 8vh;
+  overflow: hidden;
+}
+
+.control .cat {
+  flex: 1;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8vh;
+  transition: filter 0.3s;
+}
+
+.cat:hover {
+  filter: contrast(1.75);
+  transition: filter 0.3s;
+}
+
+.back {
+  background-color: rgb(146, 209, 232);
+}
+
+.start {
+  background-color: rgb(90, 200, 123);
+}
+
+.next {
+  background-color: rgb(206, 125, 246);
+}
+
+.stop {
+  background-color: rgb(215, 15, 15);
+  font-weight: 900;
+  font-size: larger;
+}
+
+.input-btn {
+  width: 5vw;
+  height: 3vw;
+  margin-top: 2vh;
+  background-color: rgb(255, 208, 0);
+  font-size: min(1vh, 1vw);
+  font-weight: 900;
+  color: purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: min(1vh, 1vw);
+  transition: filter 0.3s;
+}
+.input-btn:hover {
+  filter: contrast(1.75);
+  transition: filter 0.3s;
+}
+
+.stop:hover {
+  transform: scale(1.1);
+}
+
+.display {
+  padding: min(5vh, 5vw);
+  border-radius: min(2vh, 2vw);
+  background-color: #285725;
+  font-family: "Noto Sans", "Noto Sans SC", sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  box-shadow: 4vw -4vh rgb(252, 149, 207);
+}
+
+.bezel {
+  width: min(10vh, 10vw);
+  height: min(10vh, 10vw);
+  border: 0.5vh solid rgba(0, 0, 0, 0.2);
+  position: relative;
+  font-size: 7vh;
+  text-align: center;
+  box-shadow: inset 0.5vh 0.5vh 0px 0px rgba(132, 118, 118, 0.5);
+  overflow: hidden;
+}
+
+.bezel svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform: translate3d(-50%, 0, 0);
+}
+
+.bezel svg line {
+  stroke: #454141b7;
+  stroke-width: 2;
+}
+
+.flip:before {
+  content: attr(data-letter);
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  overflow: hidden;
+  transform: translate3d(-50%, -50%, 0);
+  animation-duration: 180ms;
+  animation-iteration-count: 8;
+  animation-name: slidein;
+}
+
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 2vh;
+  flex-wrap: nowrap;
+}
+
+.game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5vw;
+}
+
+.char-input {
+  cursor: pointer;
+  height: 5vw;
+  width: 5vw;
+  font-size: 4vw;
+  border-radius: 0.75vw;
+  background-color: rgb(228, 8, 26);
+  border: 0.25vw solid rgb(255, 208, 0);
+}
+
+.letter-board {
+  font-size: 1vw;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3vh;
+  height: 35vh;
+  width: 20vw;
+  border-radius: 3vh;
+  background-color: #534753;
+  font-family: "Cousine", monospace;
+  color: #a19e9e;
+  flex-direction: column;
+  gap: 2vh;
+  box-shadow: 4vw -4vh rgb(108, 73, 105);
+}
+
+.msg {
+  font-size: 10vh;
+  color: rgb(255, 123, 0);
+  font-weight: 900;
+}

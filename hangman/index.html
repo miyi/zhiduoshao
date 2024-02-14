@@ -1,0 +1,85 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      data: "/data/data.js",
+      script: "./script.js",
+      css: "./style.css",
+      board: "#board",
+      bezel: "#bezel",
+      row: "#row"
+    }
+  </script>
+  <template id="view">
+    <div 
+      class="container"
+      +loading="{
+        start: false,
+        bank: loadBank(),
+        target: null,
+        pos: 0,
+        reveal: false,
+      }"
+    >
+      <div class="control">
+        <a class="cat back" href="poetry" $exist="!start" >&#x25c0&#x25c0</a>
+        <div
+          class="cat start"
+          $exist="!start"
+          +click="start=true, target=bank[pos%bank.length]"
+        >
+          开始
+        </div>
+        <div $exist="start" class="cat stop" +click="reveal=true">
+          揭秘
+        </div>
+        <div $exist="start" class="cat next" +click="pos++, start=false, target=null">&#x25B6;&#x25B6;</div>
+      </div>
+      <div $exist="!start" class="game">
+        <div class="msg">
+          尚未开始游戏
+        </div>
+      </div>
+      
+      <div $exist="start&&target" class="game" +loading="{entry: null, input: '', list: [], checking: false}">
+        <div class="btn-group">
+          <input class="char-input" $value#input="input" $watch="entry?checking=true:null" +keydown="$event.key===' '?$event.preventDefault():null" maxlength="1"/>
+          <div class="input-btn" +click="pushToEntry($scope),console.log(entry)"><span>祝你好运</span></div>
+        </div>
+        <board +loading="target"></board>
+        <div class="letter-board">
+          <div $each="list">${item}</div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="board">
+    <div class="display">
+      <row $each="poem" +loading="{row: item, rowdex: index}"></row>
+    </div>
+  </template>
+  bezel: {key: str, rowdex: int, keydex: int, matched: boolean, reveal: boolean}
+  <template id="bezel">
+    <div 
+      class="bezel"
+      +loading="{char: is_clue?key:null}"
+      $watch#1="check(char, matched, $node, $scope)"
+      $watch#2="entry?char=entry:null"
+      $watch#3="reveal?char=key:null"
+      +animationiteration="animationStart($node, $scope)" 
+      +animationend="animationEnd(char, key, $node, $scope)"
+    >
+      <svg>
+        <line x1='50%' y1='0%' x2='50%' y2='100%' stroke-dasharray="2 3" />
+        <line x1='0%' y1='50%' x2='100%' y2='50%' stroke-dasharray="2 3" />
+        <line x1='0' y1='100%' x2='100%' y2='0' stroke-dasharray="2 3" />
+        <line x1='0' y1='0' x2='100%' y2='100%' stroke-dasharray="2 3" />
+      </svg>
+    </div>
+  </template>
+  <template id="row">
+    <div class="row">
+      <bezel $each="row" +loading="{key: item, keydex: index, matched: false, is_clue: isClue(item, index, rowdex, $scope)}"></bezel>
+    </div>
+  </template>
+</html>
