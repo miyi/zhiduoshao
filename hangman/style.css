@@ -7,6 +7,32 @@
   }
 }
 
+@keyframes focusin {
+  0% {
+    filter: blur(min(10vw,10vh));
+  }
+  100% {
+    filter: blur(0);
+  }
+}
+
+@keyframes focusout {
+  0% {
+    filter: blur(min(10vw,10vh));
+  }
+  100% {
+    filter: blur(0);
+  }
+}
+
+.intro {
+  animation: 250ms ease-in focusin;
+}
+
+.outro {
+  animation: 250ms ease-out focusout;
+}
+
 .control {
   width: 100%;
   display: flex;

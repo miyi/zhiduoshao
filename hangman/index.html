@@ -19,6 +19,7 @@
         target: null,
         pos: 0,
         reveal: false,
+        transition: false
       }"
     >
       <div class="control">
@@ -33,7 +34,7 @@
         <div $exist="start" class="cat stop" +click="reveal=true">
           揭秘
         </div>
-        <div $exist="start" class="cat next" +click="pos++, reveal=false, target=bank[pos%bank.length], console.log(target)">&#x25B6;&#x25B6;</div>
+        <div $exist="start" class="cat next" +click="pos++, reveal=false, target=bank[pos%bank.length], transition=!transition">&#x25B6;&#x25B6;</div>
       </div>
       <div $exist="!start" class="game">
         <div class="msg">
@@ -41,7 +42,7 @@
         </div>
       </div>
       
-      <div $exist="start&&target" class="game" +loading="{entry: null, input: '', list: [], checking: false}">
+      <div $exist="start&&target" class="game" $class="{intro: transition, outro: !transition}" +loading="{entry: null, input: '', list: [], checking: false}">
         <div class="btn-group">
           <input class="char-input" $value#input="input" $watch#1="entry?checking=true:null" +keydown="$event.key===' '?$event.preventDefault():null" maxlength="1"/>
           <div class="input-btn" +click="pushToEntry($scope)"><span>祝你好运</span></div>
