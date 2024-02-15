@@ -33,7 +33,7 @@
         <div $exist="start" class="cat stop" +click="reveal=true">
           揭秘
         </div>
-        <div $exist="start" class="cat next" +click="pos++, start=false, target=null">&#x25B6;&#x25B6;</div>
+        <div $exist="start" class="cat next" +click="pos++, reveal=false, target=bank[pos%bank.length], console.log(target)">&#x25B6;&#x25B6;</div>
       </div>
       <div $exist="!start" class="game">
         <div class="msg">
@@ -43,10 +43,10 @@
       
       <div $exist="start&&target" class="game" +loading="{entry: null, input: '', list: [], checking: false}">
         <div class="btn-group">
-          <input class="char-input" $value#input="input" $watch="entry?checking=true:null" +keydown="$event.key===' '?$event.preventDefault():null" maxlength="1"/>
-          <div class="input-btn" +click="pushToEntry($scope),console.log(entry)"><span>祝你好运</span></div>
+          <input class="char-input" $value#input="input" $watch#1="entry?checking=true:null" +keydown="$event.key===' '?$event.preventDefault():null" maxlength="1"/>
+          <div class="input-btn" +click="pushToEntry($scope)"><span>祝你好运</span></div>
         </div>
-        <board +loading="target"></board>
+        <board +loading="{puzzle: target}" $watch="puzzle=target"></board>
         <div class="letter-board">
           <div $each="list">${item}</div>
         </div>
@@ -55,7 +55,7 @@
   </template>
   <template id="board">
     <div class="display">
-      <row $each="poem" +loading="{row: item, rowdex: index}"></row>
+      <row $each="puzzle.poem" +loading="{row: item, rowdex: index}"></row>
     </div>
   </template>
   bezel: {key: str, rowdex: int, keydex: int, matched: boolean, reveal: boolean}
@@ -79,7 +79,7 @@
   </template>
   <template id="row">
     <div class="row">
-      <bezel $each="row" +loading="{key: item, keydex: index, matched: false, is_clue: isClue(item, index, rowdex, $scope)}"></bezel>
+      <bezel $each="row" +loading="{key: item, keydex: index, matched: false, is_clue: isClue(item, index, rowdex, puzzle)}"></bezel>
     </div>
   </template>
 </html>

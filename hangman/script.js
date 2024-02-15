@@ -46,7 +46,7 @@ const animationEnd = (char, key, $node, $scope) => {
   }
   if (
     $scope.row.length - 1 === $scope.keydex &&
-    $scope.poem.length - 1 === $scope.rowdex
+    $scope.puzzle.poem.length - 1 === $scope.rowdex
   ) {
     $scope.checking = false;
   }
@@ -60,15 +60,15 @@ const pushToEntry = ($scope) => {
   }
 };
 
-const isClue = (item, index, rowdex, $scope) => {
+const isClue = (item, index, rowdex, puzzle) => {
   if (item === "," || item === "。" || item === "，") {
     return true;
   } else if (
-    $scope.clue &&
-    $scope.clue[0][0] === rowdex &&
-    $scope.clue[0][1] === index
+    puzzle.clue &&
+    puzzle.clue[0][0] === rowdex &&
+    puzzle.clue[0][1] === index
   ) {
-    $scope.clue.splice(0, 1);
+    puzzle.clue.splice(0, 1);
     return true;
   }
   return false;
